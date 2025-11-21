@@ -53,17 +53,12 @@ export const Hero: React.FC = () => {
 
         <div className="lg:w-1/2 relative">
             <div className="relative z-10">
-                 {/* Placeholder for yo.jpeg - In a real scenario, this would be <img src="yo.jpeg" /> */}
                  <div className="aspect-[3/4] w-72 md:w-96 mx-auto bg-gradient-to-b from-gray-700 to-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-dark-700 relative group">
-                     {/* Simulating the user's photo based on description */}
                     <img 
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop" 
+                        src="./yo.jpeg" 
                         alt="Danilo Redlich"
                         className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                     />
-                    {/* Use this line if yo.jpeg is in public folder: 
-                    <img src="/yo.jpeg" alt="Danilo Redlich" className="w-full h-full object-cover" /> 
-                    */}
                     <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent opacity-60"></div>
                  </div>
                  
