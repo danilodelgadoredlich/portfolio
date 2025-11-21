@@ -55,7 +55,7 @@ export const Hero: React.FC = () => {
             <div className="relative z-10">
                  <div className="aspect-[3/4] w-72 md:w-96 mx-auto bg-gradient-to-b from-gray-700 to-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-dark-700 relative group">
                     <img 
-                        src="./images/yo.jpeg" 
+                        src="https://drive.google.com/uc?export=view&id=1M_H6A0SAsmyfeJN-FOEz5-lqYYgytcmM" 
                         alt="Danilo Redlich"
                         className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
                     />
