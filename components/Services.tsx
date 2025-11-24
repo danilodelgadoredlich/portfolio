@@ -4,22 +4,22 @@ import { SectionId } from '../types';
 import { useLanguage } from '../context/LanguageContext';
 
 const SkillCard: React.FC<{ title: string; icon: React.ReactNode; items: string[]; highlighted?: boolean }> = ({ title, icon, items, highlighted }) => (
-  <div className={`p-8 group relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${highlighted ? 'bg-accent text-dark-900' : 'bg-dark-800 text-white hover:bg-dark-700'}`}>
-    <div className="relative z-10">
-        <div className={`w-12 h-12 mb-6 rounded-lg flex items-center justify-center ${highlighted ? 'bg-dark-900 text-accent' : 'bg-dark-900/50 text-accent'}`}>
+  <div className={`skill-card ${highlighted ? 'highlight' : 'dark'}`}>
+    <div style={{ position: 'relative', zIndex: 10 }}>
+        <div className="skill-icon-box">
             {icon}
         </div>
-        <h3 className={`text-xl font-display font-bold mb-4 ${highlighted ? 'text-dark-900' : 'text-white'}`}>{title}</h3>
-        <ul className="space-y-2">
+        <h3 className="font-display font-bold" style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>{title}</h3>
+        <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
             {items.map((item, i) => (
-                <li key={i} className={`text-sm ${highlighted ? 'text-dark-900/80 font-medium' : 'text-gray-400'}`}>
+                <li key={i} className="text-sm" style={{ opacity: highlighted ? 0.9 : 0.7, fontWeight: highlighted ? 500 : 400 }}>
                     • {item}
                 </li>
             ))}
         </ul>
     </div>
     {/* Hover effect decoration */}
-    {!highlighted && <div className="absolute -bottom-10 -right-10 w-32 h-32 bg-accent/10 rounded-full group-hover:scale-150 transition-transform duration-500"></div>}
+    {!highlighted && <div style={{ position: 'absolute', bottom: '-2.5rem', right: '-2.5rem', width: '8rem', height: '8rem', backgroundColor: 'var(--color-accent-light)', borderRadius: '50%' }}></div>}
   </div>
 );
 
@@ -27,24 +27,24 @@ export const Services: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <section id={SectionId.ABOUT} className="py-20 bg-dark-900">
-      <div className="container mx-auto px-6">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16">
-            <div className="max-w-2xl">
-                <h2 className="text-accent font-medium tracking-widest uppercase mb-2">{t.services.title}</h2>
-                <h3 className="font-display text-4xl font-bold text-white">{t.services.subtitle}</h3>
+    <section id={SectionId.ABOUT} className="section" style={{ backgroundColor: 'var(--color-dark-900)' }}>
+      <div className="container">
+        <div className="flex flex-col md-flex justify-between items-center" style={{ alignItems: 'flex-end', marginBottom: '4rem' }}>
+            <div style={{ maxWidth: '42rem' }}>
+                <h2 className="text-accent uppercase tracking-widest" style={{ fontSize: '1rem', fontWeight: 500, marginBottom: '0.5rem' }}>{t.services.title}</h2>
+                <h3 className="font-display text-white font-bold" style={{ fontSize: '2.25rem' }}>{t.services.subtitle}</h3>
             </div>
-            <p className="text-gray-400 max-w-md mt-6 md:mt-0">
+            <p className="text-gray" style={{ maxWidth: '28rem', marginTop: '1.5rem' }}>
                 {t.services.description}
             </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid-layout">
             <SkillCard 
                 title={t.services.cards.cloud}
                 icon={<Cloud />}
                 items={['Azure Data Lake Storage', 'Azure Databricks', 'Azure Data Factory', 'AWS Glue & S3', 'AWS Redshift']}
-                highlighted={true} // Yellow card styling from inspiration
+                highlighted={true}
             />
             <SkillCard 
                 title={t.services.cards.data}

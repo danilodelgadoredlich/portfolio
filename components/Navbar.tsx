@@ -33,22 +33,24 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-dark-900/95 backdrop-blur-md shadow-lg py-4' : 'bg-transparent py-6'}`}>
-      <div className="container mx-auto px-6 flex justify-between items-center">
+    <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+      <div className="container flex justify-between items-center">
         <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-accent rounded-br-lg rounded-tl-lg flex items-center justify-center">
-                <span className="font-display font-bold text-dark-900 text-lg">D</span>
+            <div className="logo-box">
+                <span style={{ fontSize: '1.125rem' }}>D</span>
             </div>
-            <span className="font-display font-bold text-xl tracking-wide">Danilo Redlich<span className="text-accent">.</span></span>
+            <span className="font-display font-bold text-lg" style={{ letterSpacing: '0.025em' }}>
+              Danilo Redlich<span className="text-accent">.</span>
+            </span>
         </div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="md-flex items-center gap-8 hidden">
           {navLinks.map((link) => (
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
-              className="text-gray-300 hover:text-accent transition-colors text-sm font-medium uppercase tracking-widest"
+              className="nav-link"
             >
               {link.label}
             </button>
@@ -56,7 +58,8 @@ export const Navbar: React.FC = () => {
           
           <button 
             onClick={toggleLanguage}
-            className="flex items-center gap-2 px-3 py-1 rounded-full border border-dark-700 bg-dark-800 text-xs font-bold text-gray-300 hover:border-accent hover:text-white transition-all ml-4"
+            className="lang-toggle"
+            style={{ marginLeft: '1rem' }}
           >
             <Globe size={14} />
             <span>{language === 'es' ? 'EN' : 'ES'}</span>
@@ -64,10 +67,10 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Mobile Toggle */}
-        <div className="md:hidden flex items-center gap-4">
+        <div className="md-hidden flex items-center gap-4">
             <button 
                 onClick={toggleLanguage}
-                className="flex items-center gap-1 px-2 py-1 rounded-full border border-dark-700 bg-dark-800 text-xs font-bold text-gray-300"
+                className="lang-toggle"
             >
                 <span>{language === 'es' ? 'EN' : 'ES'}</span>
             </button>
@@ -79,12 +82,13 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden absolute top-full left-0 w-full bg-dark-900 border-t border-dark-800 p-6 flex flex-col gap-4 shadow-xl">
+        <div className="mobile-menu md-hidden">
            {navLinks.map((link) => (
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
-              className="text-left text-gray-300 hover:text-accent py-2 text-lg"
+              className="nav-link"
+              style={{ textAlign: 'left', fontSize: '1.125rem', padding: '0.5rem 0' }}
             >
               {link.label}
             </button>

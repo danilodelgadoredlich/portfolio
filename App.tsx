@@ -10,7 +10,7 @@ import { LanguageProvider } from './context/LanguageContext';
 function App() {
   return (
     <LanguageProvider>
-      <div className="bg-dark-900 min-h-screen text-white font-sans selection:bg-accent selection:text-dark-900">
+      <div style={{ backgroundColor: 'var(--color-dark-900)', minHeight: '100vh', color: 'var(--color-white)' }}>
         <Navbar />
         <main>
           <Hero /> 
