@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danilo Redlich | Ingeniero de Datos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
       :root {
         --color-dark-900: #1F2128;
@@ -39,6 +43,7 @@
         font-family: var(--font-sans);
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
       }
 
       a {
@@ -52,19 +57,19 @@
         border: none;
         cursor: pointer;
         font-family: inherit;
+        padding: 0;
       }
 
-      /* Layout Utilities */
+      ul { list-style: none; }
+
+      /* Utilities */
       .container {
         max-width: var(--container-width);
         margin: 0 auto;
         padding: 0 1.5rem;
       }
 
-      .section {
-        padding: 5rem 0;
-      }
-
+      .section { padding: 5rem 0; }
       .flex { display: flex; }
       .flex-col { flex-direction: column; }
       .items-center { align-items: center; }
@@ -74,13 +79,24 @@
       .gap-4 { gap: 1rem; }
       .gap-6 { gap: 1.5rem; }
       .gap-8 { gap: 2rem; }
-      
       .hidden { display: none; }
-      
+      .text-center { text-align: center; }
+
+      /* Typography */
+      .font-display { font-family: var(--font-display); }
+      .font-bold { font-weight: 700; }
+      .text-accent { color: var(--color-accent); }
+      .text-white { color: var(--color-white); }
+      .text-gray { color: var(--color-gray-400); }
+      .text-sm { font-size: 0.875rem; }
+      .text-lg { font-size: 1.125rem; }
+      .uppercase { text-transform: uppercase; }
+      .tracking-widest { letter-spacing: 0.1em; }
+
+      /* Responsive */
       @media (min-width: 768px) {
         .md-flex { display: flex; }
         .md-hidden { display: none; }
-        .md-block { display: block; }
         .md-grid-2 { grid-template-columns: repeat(2, 1fr); }
       }
       
@@ -91,19 +107,6 @@
         .lg-w-half { width: 50%; }
       }
 
-      /* Typography Utilities */
-      .font-display { font-family: var(--font-display); }
-      .font-bold { font-weight: 700; }
-      .text-accent { color: var(--color-accent); }
-      .text-white { color: var(--color-white); }
-      .text-gray { color: var(--color-gray-400); }
-      .text-sm { font-size: 0.875rem; }
-      .text-lg { font-size: 1.125rem; }
-      .uppercase { text-transform: uppercase; }
-      .tracking-widest { letter-spacing: 0.1em; }
-      
-      /* Components */
-      
       /* Navbar */
       .navbar {
         position: fixed;
@@ -142,11 +145,10 @@
         font-weight: 500;
         text-transform: uppercase;
         letter-spacing: 0.1em;
+        position: relative;
       }
       
-      .nav-link:hover {
-        color: var(--color-accent);
-      }
+      .nav-link:hover { color: var(--color-accent); }
 
       .lang-toggle {
         display: flex;
@@ -166,22 +168,34 @@
         border-color: var(--color-accent);
         color: var(--color-white);
       }
-      
+
+      /* Mobile Menu */
       .mobile-menu {
-        position: absolute;
-        top: 100%;
+        position: fixed;
+        top: 0;
         left: 0;
         width: 100%;
+        height: 100vh;
         background-color: var(--color-dark-900);
-        border-top: 1px solid var(--color-dark-800);
-        padding: 1.5rem;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
         display: flex;
         flex-direction: column;
-        gap: 1rem;
+        justify-content: center;
+        align-items: center;
+        gap: 2rem;
+        z-index: 999;
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      
+      .mobile-menu.open { transform: translateX(0); }
+      
+      .mobile-menu .nav-link {
+        font-size: 1.5rem;
+        color: var(--color-white);
       }
 
-      /* Hero Section */
+      /* Hero */
       .hero-section {
         min-height: 100vh;
         display: flex;
@@ -201,6 +215,16 @@
         transform: skewX(-12deg) translateX(5rem);
         z-index: -1;
       }
+      
+      .circle-decoration {
+        position: absolute;
+        bottom: 5rem;
+        left: 2.5rem;
+        width: 5rem;
+        height: 5rem;
+        border: 2px solid rgba(252, 163, 17, 0.2);
+        border-radius: 50%;
+      }
 
       .hero-title {
         font-family: var(--font-display);
@@ -210,9 +234,7 @@
         margin-bottom: 1.5rem;
       }
       
-      @media (min-width: 1024px) {
-        .hero-title { font-size: 4.5rem; }
-      }
+      @media (min-width: 1024px) { .hero-title { font-size: 4.5rem; } }
 
       .hero-divider {
         width: 3rem;
@@ -230,7 +252,7 @@
       }
       
       .btn-link:hover { color: var(--color-white); }
-      .btn-link:hover svg { transform: translateX(4px); transition: transform 0.2s; }
+      .btn-link:hover i { transform: translateX(4px); transition: transform 0.2s; }
 
       .hero-stats {
         display: flex;
@@ -258,9 +280,7 @@
         border: 1px solid var(--color-dark-700);
       }
       
-      @media (min-width: 768px) {
-        .image-card { width: 24rem; }
-      }
+      @media (min-width: 768px) { .image-card { width: 24rem; } }
       
       .image-card img {
         width: 100%;
@@ -270,10 +290,7 @@
         transition: all 0.5s;
       }
       
-      .image-card:hover img {
-        opacity: 1;
-        transform: scale(1.05);
-      }
+      .image-card:hover img { opacity: 1; transform: scale(1.05); }
 
       .floating-badge {
         position: absolute;
@@ -295,7 +312,7 @@
         50% { transform: translateY(-10px); }
       }
 
-      /* Services Section */
+      /* Services */
       .grid-layout {
         display: grid;
         grid-template-columns: 1fr;
@@ -315,17 +332,9 @@
       
       .skill-card:hover { transform: translateY(-0.5rem); }
       
-      .skill-card.dark {
-        background-color: var(--color-dark-800);
-        color: var(--color-white);
-      }
-      
+      .skill-card.dark { background-color: var(--color-dark-800); color: var(--color-white); }
       .skill-card.dark:hover { background-color: var(--color-dark-700); }
-      
-      .skill-card.highlight {
-        background-color: var(--color-accent);
-        color: var(--color-dark-900);
-      }
+      .skill-card.highlight { background-color: var(--color-accent); color: var(--color-dark-900); }
 
       .skill-icon-box {
         width: 3rem;
@@ -337,35 +346,21 @@
         justify-content: center;
       }
       
-      .skill-card.dark .skill-icon-box {
-        background-color: rgba(31, 33, 40, 0.5);
-        color: var(--color-accent);
-      }
+      .skill-card.dark .skill-icon-box { background-color: rgba(31, 33, 40, 0.5); color: var(--color-accent); }
+      .skill-card.highlight .skill-icon-box { background-color: var(--color-dark-900); color: var(--color-accent); }
       
-      .skill-card.highlight .skill-icon-box {
-        background-color: var(--color-dark-900);
-        color: var(--color-accent);
-      }
+      .skill-list li { margin-bottom: 0.5rem; font-size: 0.875rem; }
 
-      /* Experience Section */
-      .timeline-container {
-        position: relative;
-        margin-top: 3rem;
-      }
-      
+      /* Experience */
+      .timeline-container { position: relative; margin-top: 3rem; }
       .timeline-line {
         position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 1.25rem; /* Adjusted for dot center */
+        top: 0; bottom: 0; left: 1.25rem;
         width: 2px;
         background: linear-gradient(to bottom, transparent, var(--color-dark-700), transparent);
         transform: translateX(-1px);
       }
-      
-      @media (min-width: 768px) {
-        .timeline-line { left: 50%; }
-      }
+      @media (min-width: 768px) { .timeline-line { left: 50%; } }
 
       .timeline-item {
         position: relative;
@@ -374,82 +369,49 @@
         justify-content: space-between;
         align-items: center;
       }
-      
       .timeline-item:last-child { margin-bottom: 0; }
-      
-      @media (min-width: 768px) {
-        .timeline-item:nth-child(odd) { flex-direction: row-reverse; }
-      }
+      @media (min-width: 768px) { .timeline-item:nth-child(odd) { flex-direction: row-reverse; } }
 
       .timeline-dot {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2.5rem; height: 2.5rem;
         border-radius: 50%;
         border: 1px solid var(--color-dark-700);
         background-color: var(--color-dark-900);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 10;
-        flex-shrink: 0;
-        /* Position logic handled by flex order in components or absolute centering in css */
-        position: absolute;
-        left: 0;
+        display: flex; align-items: center; justify-content: center;
+        z-index: 10; flex-shrink: 0; position: absolute; left: 0;
       }
-
       .timeline-dot-inner {
-        width: 0.75rem;
-        height: 0.75rem;
+        width: 0.75rem; height: 0.75rem;
         background-color: var(--color-gray-400);
         border-radius: 50%;
         transition: background-color 0.3s;
       }
-      
       .timeline-item:hover .timeline-dot-inner { background-color: var(--color-dark-900); }
-      .timeline-item:hover .timeline-dot { 
-        background-color: var(--color-accent); 
-        border-color: var(--color-accent);
-      }
-
-      @media (min-width: 768px) {
-        .timeline-dot { left: 50%; transform: translateX(-50%); position: absolute; }
-      }
+      .timeline-item:hover .timeline-dot { background-color: var(--color-accent); border-color: var(--color-accent); }
+      @media (min-width: 768px) { .timeline-dot { left: 50%; transform: translateX(-50%); } }
 
       .timeline-content {
-        width: calc(100% - 4rem);
-        margin-left: 4rem;
-        background-color: var(--color-dark-800);
-        padding: 1.5rem;
-        border-radius: 0.75rem;
-        border: 1px solid var(--color-dark-700);
+        width: calc(100% - 4rem); margin-left: 4rem;
+        background-color: var(--color-dark-800); padding: 1.5rem;
+        border-radius: 0.75rem; border: 1px solid var(--color-dark-700);
         box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         transition: all 0.3s;
       }
-      
-      @media (min-width: 768px) {
-        .timeline-content { width: calc(50% - 2.5rem); margin-left: 0; }
-      }
-      
+      @media (min-width: 768px) { .timeline-content { width: calc(50% - 2.5rem); margin-left: 0; } }
       .timeline-content:hover { border-color: rgba(252, 163, 17, 0.5); }
 
-      /* Education Section */
+      /* Education */
       .education-item {
         border-left: 2px solid var(--color-dark-700);
         padding-left: 1.5rem;
         position: relative;
         margin-bottom: 2rem;
       }
-      
       .education-dot {
-        position: absolute;
-        left: -9px;
-        top: 0;
-        width: 1rem;
-        height: 1rem;
-        border-radius: 50%;
-        border: 4px solid var(--color-dark-900);
+        position: absolute; left: -9px; top: 0;
+        width: 1rem; height: 1rem;
+        border-radius: 50%; border: 4px solid var(--color-dark-900);
       }
-
       .cert-card {
         background-color: var(--color-dark-800);
         padding: 1.5rem;
@@ -457,70 +419,40 @@
         border: 1px solid var(--color-dark-700);
         transition: border-color 0.3s;
       }
-      
       .cert-card:hover { border-color: var(--color-accent); }
 
-      /* Contact Section */
-      .contact-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        gap: 4rem;
-      }
-      
-      @media (min-width: 1024px) {
-        .contact-grid { grid-template-columns: repeat(2, 1fr); }
-      }
+      /* Contact */
+      .contact-grid { display: grid; grid-template-columns: 1fr; gap: 4rem; }
+      @media (min-width: 1024px) { .contact-grid { grid-template-columns: repeat(2, 1fr); } }
 
       .contact-icon {
-        width: 2.5rem;
-        height: 2.5rem;
+        width: 2.5rem; height: 2.5rem;
         background-color: var(--color-dark-800);
         border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--color-accent);
-        flex-shrink: 0;
+        display: flex; align-items: center; justify-content: center;
+        color: var(--color-accent); flex-shrink: 0;
       }
 
       .contact-form {
-        background-color: var(--color-dark-800);
-        padding: 2rem;
-        border-radius: 1rem;
-        border: 1px solid var(--color-dark-700);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        background-color: var(--color-dark-800); padding: 2rem;
+        border-radius: 1rem; border: 1px solid var(--color-dark-700);
       }
-
       .form-input, .form-textarea {
         width: 100%;
         background-color: var(--color-dark-900);
         border: 1px solid var(--color-dark-700);
-        border-radius: 0.5rem;
-        padding: 0.75rem;
-        color: var(--color-white);
-        margin-bottom: 1.5rem;
+        border-radius: 0.5rem; padding: 0.75rem;
+        color: var(--color-white); margin-bottom: 1.5rem;
         transition: border-color 0.3s;
       }
-      
-      .form-input:focus, .form-textarea:focus {
-        border-color: var(--color-accent);
-        outline: none;
-      }
-
+      .form-input:focus, .form-textarea:focus { border-color: var(--color-accent); outline: none; }
       .btn-primary {
         width: 100%;
-        background-color: var(--color-accent);
-        color: var(--color-dark-900);
-        font-weight: 700;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        transition: background-color 0.3s;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 0.5rem;
+        background-color: var(--color-accent); color: var(--color-dark-900);
+        font-weight: 700; padding: 1rem;
+        border-radius: 0.5rem; transition: background-color 0.3s;
+        display: flex; align-items: center; justify-content: center; gap: 0.5rem;
       }
-      
       .btn-primary:hover { background-color: var(--color-accent-hover); }
 
       /* Scrollbar */
@@ -529,18 +461,505 @@
       ::-webkit-scrollbar-thumb { background: var(--color-dark-700); border-radius: 4px; }
       ::-webkit-scrollbar-thumb:hover { background: var(--color-accent); }
     </style>
-  <script type="importmap">
-{
-  "imports": {
-    "react": "https://aistudiocdn.com/react@^19.2.0",
-    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
-    "react/": "https://aistudiocdn.com/react@^19.2.0/",
-    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0"
-  }
-}
-</script>
 </head>
-  <body>
-    <div id="root"></div>
-  </body>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="container flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="logo-box">
+                    <span style="font-size: 1.125rem">D</span>
+                </div>
+                <span class="font-display font-bold text-lg" style="letter-spacing: 0.025em">
+                  Danilo Redlich<span class="text-accent">.</span>
+                </span>
+            </div>
+
+            <!-- Desktop Nav -->
+            <div class="md-flex items-center gap-8 hidden">
+                <a href="#home" class="nav-link" data-i18n="nav.home">Inicio</a>
+                <a href="#about" class="nav-link" data-i18n="nav.about">Sobre Mí</a>
+                <a href="#experience" class="nav-link" data-i18n="nav.experience">Experiencia</a>
+                <a href="#education" class="nav-link" data-i18n="nav.education">Educación</a>
+                <a href="#contact" class="nav-link" data-i18n="nav.contact">Contacto</a>
+                
+                <button class="lang-toggle" id="lang-toggle-desktop">
+                    <i data-lucide="globe" style="width: 14px;"></i>
+                    <span id="lang-label-desktop">EN</span>
+                </button>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <div class="md-hidden flex items-center gap-4">
+                <button class="lang-toggle" id="lang-toggle-mobile">
+                    <span id="lang-label-mobile">EN</span>
+                </button>
+                <button class="text-white" id="menu-btn">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobile-menu">
+        <button id="close-menu-btn" style="position: absolute; top: 1.5rem; right: 1.5rem; color: white;">
+            <i data-lucide="x"></i>
+        </button>
+        <a href="#home" class="nav-link" data-i18n="nav.home">Inicio</a>
+        <a href="#about" class="nav-link" data-i18n="nav.about">Sobre Mí</a>
+        <a href="#experience" class="nav-link" data-i18n="nav.experience">Experiencia</a>
+        <a href="#education" class="nav-link" data-i18n="nav.education">Educación</a>
+        <a href="#contact" class="nav-link" data-i18n="nav.contact">Contacto</a>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-bg-accent"></div>
+            <div class="circle-decoration"></div>
+
+            <div class="container flex flex-col items-center justify-between gap-8 lg-flex-row">
+                <div class="lg-w-half flex flex-col gap-6">
+                    <div>
+                        <div class="hero-divider"></div>
+                        <h2 class="text-accent uppercase tracking-widest" style="font-weight: 500; margin-bottom: 0.5rem" data-i18n="hero.role">Ingeniero de Datos</h2>
+                        <h1 class="hero-title">
+                            Danilo <br />
+                            <span class="text-white">Redlich.</span>
+                        </h1>
+                        <p class="text-gray text-lg" style="max-width: 28rem;" data-i18n="hero.description">
+                            Especialista en arquitectura, diseño e implementación de soluciones robustas de Data Engineering y Analytics con más de 16 años de trayectoria.
+                        </p>
+                    </div>
+
+                    <div class="flex" style="flex-wrap: wrap; gap: 1.5rem; align-items: center;">
+                        <a href="#contact" class="btn-link">
+                            <span data-i18n="hero.cta">Contáctame</span> <i data-lucide="arrow-right" style="width: 16px;"></i>
+                        </a>
+                        <div style="height: 1px; width: 3rem; background-color: var(--color-dark-700);"></div>
+                        <div class="flex gap-4">
+                            <a href="https://www.linkedin.com/in/danilo-redlich-ml" target="_blank" rel="noopener noreferrer" class="text-gray">
+                                <i data-lucide="linkedin" style="width: 20px;"></i>
+                            </a>
+                            <a href="mailto:danilo.delgado.redlich@gmail.com" class="text-gray">
+                                <i data-lucide="mail" style="width: 20px;"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div>
+                            <span class="stat-number">16+</span>
+                            <span class="text-sm text-gray uppercase tracking-widest" data-i18n="hero.yearsExp">Años Experiencia</span>
+                        </div>
+                        <div>
+                            <span class="stat-number">10+</span>
+                            <span class="text-sm text-gray uppercase tracking-widest" data-i18n="hero.cloudProjects">Proyectos Cloud</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg-w-half" style="position: relative;">
+                    <div style="position: relative; z-index: 10;">
+                        <div class="image-card">
+                            <img src="components/images/yo.jpeg" alt="Danilo Redlich">
+                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, var(--color-dark-900), transparent); opacity: 0.6;"></div>
+                        </div>
+                        
+                        <div class="floating-badge">
+                            <div style="width: 2.5rem; height: 2.5rem; background-color: var(--color-accent); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--color-dark-900);">
+                                <i data-lucide="smartphone" style="width: 20px;"></i>
+                            </div>
+                            <div>
+                                <p class="text-gray" style="font-size: 0.75rem" data-i18n="hero.available">Disponible</p>
+                                <p class="text-white font-bold text-sm">+56 9 9445 5994</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services / About Section -->
+        <section id="about" class="section" style="background-color: var(--color-dark-900);">
+            <div class="container">
+                <div class="flex flex-col md-flex justify-between items-center" style="align-items: flex-end; margin-bottom: 4rem;">
+                    <div style="max-width: 42rem;">
+                        <h2 class="text-accent uppercase tracking-widest" style="font-size: 1rem; font-weight: 500; margin-bottom: 0.5rem" data-i18n="services.title">Aptitudes Principales</h2>
+                        <h3 class="font-display text-white font-bold" style="font-size: 2.25rem" data-i18n="services.subtitle">Tecnologías y Dominio Técnico.</h3>
+                    </div>
+                    <p class="text-gray" style="max-width: 28rem; margin-top: 1.5rem;" data-i18n="services.description">
+                        Consolidada experiencia en Cloud Computing, ETL/ELT y visualización de datos para generar valor de negocio.
+                    </p>
+                </div>
+
+                <div class="grid-layout" id="skills-grid">
+                    <!-- Cards injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="section" style="background-color: var(--color-dark-900); border-top: 1px solid var(--color-dark-800);">
+            <div class="container">
+                <div style="margin-bottom: 4rem;">
+                    <h2 class="text-accent uppercase tracking-widest" style="font-weight: 500; margin-bottom: 0.5rem" data-i18n="experience.title">Trayectoria</h2>
+                    <h3 class="font-display font-bold text-white" style="font-size: 2.25rem" data-i18n="experience.subtitle">Experiencia Profesional.</h3>
+                </div>
+
+                <div class="timeline-container">
+                    <div class="timeline-line"></div>
+                    <div id="timeline-items">
+                        <!-- Items injected via JS -->
+                    </div>
+                </div>
+                
+                <div class="flex justify-center" style="margin-top: 3rem;">
+                    <p class="text-gray-500 text-sm" data-i18n="experience.footer">Experiencia previa incluye roles en Aligare, Global Hitss, everis y VTR.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="section" style="background-color: #1a1c23;">
+            <div class="container">
+                <div class="grid-layout lg-grid-2" style="gap: 4rem;">
+                    
+                    <!-- Academic -->
+                    <div>
+                        <div class="flex items-center gap-4" style="margin-bottom: 2rem;">
+                            <div class="logo-box" style="width: 3rem; height: 3rem; border-radius: 0.5rem; background-color: var(--color-dark-800); color: var(--color-accent);">
+                                <i data-lucide="book-open"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-white" style="font-size: 1.875rem" data-i18n="education.title">Educación</h3>
+                        </div>
+                        
+                        <div style="display: flex; flexDirection: column; gap: 2rem;">
+                            <div class="education-item">
+                                <span class="education-dot" style="background-color: var(--color-accent);"></span>
+                                <h4 class="text-white font-bold text-lg" data-i18n="education.items.ds.degree">Diplomado en Python and Data Science</h4>
+                                <p class="text-accent" data-i18n="education.items.ds.inst">Universidad Autónoma de Chile</p>
+                                <p class="text-gray-500 text-sm" data-i18n="education.items.ds.year">Dic 2024 - Jun 2025</p>
+                            </div>
+                            <div class="education-item">
+                                <span class="education-dot" style="background-color: var(--color-gray-500);"></span>
+                                <h4 class="text-white font-bold text-lg" data-i18n="education.items.ai.degree">Diplomado en IA, Inteligencia Artificial</h4>
+                                <p class="text-accent" data-i18n="education.items.ai.inst">Universidad Autónoma de Chile</p>
+                                <p class="text-gray-500 text-sm" data-i18n="education.items.ai.year">Ene 2024 - Jun 2024</p>
+                            </div>
+                            <div class="education-item">
+                                <span class="education-dot" style="background-color: var(--color-gray-500);"></span>
+                                <h4 class="text-white font-bold text-lg" data-i18n="education.items.eng.degree">Ingeniería Informática</h4>
+                                <p class="text-accent" data-i18n="education.items.eng.inst">INACAP</p>
+                                <p class="text-gray-500 text-sm" data-i18n="education.items.eng.year">2001 - 2006</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certifications -->
+                    <div>
+                        <div class="flex items-center gap-4" style="margin-bottom: 2rem;">
+                            <div class="logo-box" style="width: 3rem; height: 3rem; border-radius: 0.5rem; background-color: var(--color-dark-800); color: var(--color-accent);">
+                                <i data-lucide="award"></i>
+                            </div>
+                            <h3 class="font-display font-bold text-white" style="font-size: 1.875rem" data-i18n="education.certifications">Certificaciones</h3>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                            <div class="cert-card">
+                                <h5 class="text-white font-bold" style="margin-bottom: 0.5rem">Scrum Master Professional</h5>
+                                <p class="text-gray text-sm uppercase tracking-widest" style="font-size: 0.75rem" data-i18n="education.certs.scrum">Certificate SMPC</p>
+                            </div>
+                            <div class="cert-card">
+                                <h5 class="text-white font-bold" style="margin-bottom: 0.5rem">Google AI Essentials</h5>
+                                <p class="text-gray text-sm uppercase tracking-widest" style="font-size: 0.75rem" data-i18n="education.certs.google">Google</p>
+                            </div>
+                            <div class="cert-card">
+                                <h5 class="text-white font-bold" style="margin-bottom: 0.5rem">Python I: Programación</h5>
+                                <p class="text-gray text-sm uppercase tracking-widest" style="font-size: 0.75rem" data-i18n="education.certs.python">Fundamentos</p>
+                            </div>
+                            <div class="cert-card">
+                                <h5 class="text-white font-bold" style="margin-bottom: 0.5rem">AWS Cloud Practitioner</h5>
+                                <p class="text-gray text-sm uppercase tracking-widest" style="font-size: 0.75rem" data-i18n="education.certs.aws">ACL Academy</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Footer -->
+        <footer id="contact" class="section" style="padding-bottom: 2.5rem; border-top: 1px solid var(--color-dark-700); background-color: var(--color-dark-900);">
+            <div class="container">
+                <div class="contact-grid">
+                    <div class="flex flex-col gap-6">
+                        <div>
+                            <h2 class="text-accent uppercase tracking-widest" style="font-weight: 500; margin-bottom: 0.5rem" data-i18n="contact.title">Contacto</h2>
+                            <h3 class="font-display font-bold text-white" style="font-size: 2.25rem; margin-bottom: 1.5rem" data-i18n="contact.subtitle">Hablemos de tu próximo proyecto.</h3>
+                            <p class="text-gray text-lg" style="margin-bottom: 2rem;" data-i18n="contact.description">
+                                Disponible para oportunidades en Data Engineering, Arquitectura de Datos e Inteligencia de Negocios.
+                            </p>
+                        </div>
+                        
+                        <div style="display: flex; flexDirection: column; gap: 1.5rem;">
+                            <div class="flex items-center gap-4">
+                                <div class="contact-icon"><i data-lucide="phone"></i></div>
+                                <div>
+                                    <p class="text-gray text-sm" data-i18n="contact.phone">Teléfono / WhatsApp</p>
+                                    <a href="tel:+56994455994" class="text-white" style="font-weight: 500;">+56 9 9445 5994</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="contact-icon"><i data-lucide="mail"></i></div>
+                                <div>
+                                    <p class="text-gray text-sm" data-i18n="contact.email">Email</p>
+                                    <a href="mailto:danilo.delgado.redlich@gmail.com" class="text-white" style="font-weight: 500;">danilo.delgado.redlich@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="contact-icon"><i data-lucide="map-pin"></i></div>
+                                <div>
+                                    <p class="text-gray text-sm" data-i18n="contact.location">Ubicación</p>
+                                    <p class="text-white" style="font-weight: 500;">Gran Santiago, Chile</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="contact-icon"><i data-lucide="linkedin"></i></div>
+                                <div>
+                                    <p class="text-gray text-sm" data-i18n="contact.linkedin">LinkedIn</p>
+                                    <a href="https://www.linkedin.com/in/danilo-redlich-ml" target="_blank" rel="noopener noreferrer" class="text-white" style="font-weight: 500;">/in/danilo-redlich-ml</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <form class="contact-form" onsubmit="event.preventDefault();">
+                            <div class="grid-layout md-grid-2" style="gap: 1.5rem; margin-bottom: 1.5rem;">
+                                <div>
+                                    <label class="text-gray uppercase" style="font-size: 0.75rem; display: block; margin-bottom: 0.5rem" data-i18n="contact.form.name">Nombre</label>
+                                    <input type="text" class="form-input" style="margin: 0;">
+                                </div>
+                                <div>
+                                    <label class="text-gray uppercase" style="font-size: 0.75rem; display: block; margin-bottom: 0.5rem" data-i18n="contact.form.email">Email</label>
+                                    <input type="email" class="form-input" style="margin: 0;">
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 1.5rem;">
+                                 <label class="text-gray uppercase" style="font-size: 0.75rem; display: block; margin-bottom: 0.5rem" data-i18n="contact.form.message">Mensaje</label>
+                                 <textarea class="form-textarea" style="height: 8rem; margin: 0;"></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary">
+                                <span data-i18n="contact.form.submit">Enviar Mensaje</span> <i data-lucide="send" style="width: 18px;"></i>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid var(--color-dark-800); margin-top: 4rem; padding-top: 2rem; text-align: center;">
+                    <p class="text-gray text-sm">© <span id="year"></span> Danilo Redlich. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Data & Translations
+        const translations = {
+            es: {
+                nav: { home: 'Inicio', about: 'Sobre Mí', experience: 'Experiencia', education: 'Educación', contact: 'Contacto' },
+                hero: { role: 'Ingeniero de Datos', description: 'Especialista en arquitectura, diseño e implementación de soluciones robustas de Data Engineering y Analytics con más de 16 años de trayectoria.', cta: 'Contáctame', yearsExp: 'Años Experiencia', cloudProjects: 'Proyectos Cloud', available: 'Disponible' },
+                services: {
+                    title: 'Aptitudes Principales', subtitle: 'Tecnologías y Dominio Técnico.', description: 'Consolidada experiencia en Cloud Computing, ETL/ELT y visualización de datos para generar valor de negocio.',
+                    cards: [
+                        { title: 'Arquitectura Cloud', icon: 'cloud', highlighted: true, items: ['Azure Data Lake Storage', 'Azure Databricks', 'Azure Data Factory', 'AWS Glue & S3', 'AWS Redshift'] },
+                        { title: 'Big Data & Bases de Datos', icon: 'database', items: ['SQL Server (T-SQL)', 'PostgreSQL', 'Teradata', 'Data Warehousing', 'Delta Lake'] },
+                        { title: 'Orquestación & ETL', icon: 'settings', items: ['Apache Airflow', 'Apache NiFi', 'SSIS', 'Automated Pipelines', 'Python & PySpark'] },
+                        { title: 'Visualización de Datos (BI)', icon: 'bar-chart', items: ['Power BI', 'Tableau', 'Microstrategy', 'Executive Reporting', 'KPIs'] },
+                        { title: 'Desarrollo', icon: 'code', items: ['Python', 'C', 'Notebooks', 'Stored Procedures', 'APIs'] },
+                        { title: 'Metodologías', icon: 'server', items: ['Scrum Master', 'Agile', 'Team Leadership', 'DevOps CI/CD', 'Project Management'] }
+                    ]
+                },
+                experience: {
+                    title: 'Trayectoria', subtitle: 'Experiencia Profesional.', footer: 'Experiencia previa incluye roles en Aligare, Global Hitss, everis y VTR.',
+                    items: [
+                        { company: 'ACL', role: 'Ingeniero de datos', period: 'Oct 2023 - Presente', description: 'Desarrollo y fortalecimiento de competencias en proyectos de Data Engineering y Analytics.', achievements: ['Desarrollo en SQL Server, Python, PySpark y C.', 'Diseño e implementación de procesos ETL hacia Data Warehouses.', 'Orquestación de flujos con Azure Data Factory.', 'Programación en notebooks de Azure Databricks.'] },
+                        { company: 'Talana', role: 'Consultor de integración / BA Senior', period: 'May 2022 - Sep 2023', description: 'Liderazgo en integraciones y Business Analysis.', achievements: ['Reemplazo exitoso del Product Owner durante periodo crítico.', 'Generación de Historias de Usuario y requisitos funcionales.', 'Documentación y mantenimiento del conocimiento en el área de integraciones.'] },
+                        { company: 'ACL Tecnología', role: 'Data Engineer (CENCOSUD)', period: 'Ago 2021 - May 2022', description: 'Análisis y desarrollo de soluciones ETL para CENCOSUD.', achievements: ['Dominio de Apache NiFi para flujos de datos eficientes.', 'Ingestión de datos real-time en Teradata y Athena.', 'Optimización de lecturas de buckets AWS S3.'] },
+                        { company: 'iNegocios', role: 'Ingeniero de datos', period: 'Oct 2019 - Ago 2021', description: 'Profesional independiente enfocado en soluciones ETL y liderazgo estratégico.', achievements: ['Desarrollo ODI versión 11 para DIPRES.', 'Gestión ágil de proyectos (Scrum).'] },
+                        { company: 'Seidor Chile', role: 'Analista Funcional | Consultor Senior', period: 'Abr 2016 - Oct 2019', description: 'Análisis de integraciones VTEX para Supermercados Jumbo y Wong Perú.', achievements: ['Integración TCP entre OSB y POS.', 'Análisis PLSQL para Contraloría General.'] }
+                    ]
+                },
+                education: {
+                    title: 'Educación', certifications: 'Certificaciones',
+                    items: {
+                        ds: { degree: 'Diplomado en Python and Data Science', inst: 'Universidad Autónoma de Chile', year: 'Dic 2024 - Jun 2025' },
+                        ai: { degree: 'Diplomado en IA, Inteligencia Artificial', inst: 'Universidad Autónoma de Chile', year: 'Ene 2024 - Jun 2024' },
+                        eng: { degree: 'Ingeniería Informática', inst: 'INACAP', year: '2001 - 2006' }
+                    },
+                    certs: { scrum: 'Certificate SMPC', google: 'Google', python: 'Fundamentos', aws: 'ACL Academy' }
+                },
+                contact: {
+                    title: 'Contacto', subtitle: 'Hablemos de tu próximo proyecto de datos.', description: 'Disponible para oportunidades en Data Engineering, Arquitectura de Datos e Inteligencia de Negocios.',
+                    phone: 'Teléfono / WhatsApp', email: 'Email', location: 'Ubicación', linkedin: 'LinkedIn',
+                    form: { name: 'Nombre', email: 'Email', message: 'Mensaje', submit: 'Enviar Mensaje' }
+                }
+            },
+            en: {
+                nav: { home: 'Home', about: 'About Me', experience: 'Experience', education: 'Education', contact: 'Contact' },
+                hero: { role: 'Data Engineer', description: 'Specialist in architecture, design, and implementation of robust Data Engineering and Analytics solutions with over 16 years of experience.', cta: 'Contact Me', yearsExp: 'Years Experience', cloudProjects: 'Cloud Projects', available: 'Available' },
+                services: {
+                    title: 'Key Skills', subtitle: 'Technologies and Technical Domain.', description: 'Consolidated experience in Cloud Computing, ETL/ELT, and data visualization to generate business value.',
+                    cards: [
+                        { title: 'Cloud Architecture', icon: 'cloud', highlighted: true, items: ['Azure Data Lake Storage', 'Azure Databricks', 'Azure Data Factory', 'AWS Glue & S3', 'AWS Redshift'] },
+                        { title: 'Big Data & Databases', icon: 'database', items: ['SQL Server (T-SQL)', 'PostgreSQL', 'Teradata', 'Data Warehousing', 'Delta Lake'] },
+                        { title: 'Orchestration & ETL', icon: 'settings', items: ['Apache Airflow', 'Apache NiFi', 'SSIS', 'Automated Pipelines', 'Python & PySpark'] },
+                        { title: 'Data Visualization (BI)', icon: 'bar-chart', items: ['Power BI', 'Tableau', 'Microstrategy', 'Executive Reporting', 'KPIs'] },
+                        { title: 'Development', icon: 'code', items: ['Python', 'C', 'Notebooks', 'Stored Procedures', 'APIs'] },
+                        { title: 'Methodologies', icon: 'server', items: ['Scrum Master', 'Agile', 'Team Leadership', 'DevOps CI/CD', 'Project Management'] }
+                    ]
+                },
+                experience: {
+                    title: 'Career', subtitle: 'Professional Experience.', footer: 'Previous experience includes roles at Aligare, Global Hitss, everis, and VTR.',
+                    items: [
+                        { company: 'ACL', role: 'Data Engineer', period: 'Oct 2023 - Present', description: 'Development and strengthening of competencies in Data Engineering and Analytics projects.', achievements: ['Development in SQL Server, Python, PySpark, and C.', 'Design and implementation of ETL processes towards Data Warehouses.', 'Orchestration of flows with Azure Data Factory.', 'Programming in Azure Databricks notebooks.'] },
+                        { company: 'Talana', role: 'Integration Consultant / Senior BA', period: 'May 2022 - Sep 2023', description: 'Leadership in integrations and Business Analysis.', achievements: ['Successful replacement of the Product Owner during a critical period.', 'Generation of User Stories and functional requirements.', 'Documentation and maintenance of knowledge in the integration area.'] },
+                        { company: 'ACL Tecnología', role: 'Data Engineer (CENCOSUD)', period: 'Aug 2021 - May 2022', description: 'Analysis and development of ETL solutions for CENCOSUD.', achievements: ['Mastery of Apache NiFi for efficient data flows.', 'Real-time data ingestion in Teradata and Athena.', 'Optimization of AWS S3 bucket readings.'] },
+                        { company: 'iNegocios', role: 'Data Engineer', period: 'Oct 2019 - Aug 2021', description: 'Independent professional focused on ETL solutions and strategic leadership.', achievements: ['ODI version 11 development for DIPRES.', 'Agile project management (Scrum).'] },
+                        { company: 'Seidor Chile', role: 'Functional Analyst | Senior Consultant', period: 'Apr 2016 - Oct 2019', description: 'Analysis of VTEX integrations for Jumbo Supermarkets and Wong Peru.', achievements: ['TCP integration between OSB and POS.', 'PLSQL analysis for Comptroller General.'] }
+                    ]
+                },
+                education: {
+                    title: 'Education', certifications: 'Certifications',
+                    items: {
+                        ds: { degree: 'Diploma in Python and Data Science', inst: 'Universidad Autónoma de Chile', year: 'Dec 2024 - Jun 2025' },
+                        ai: { degree: 'Diploma in AI, Artificial Intelligence', inst: 'Universidad Autónoma de Chile', year: 'Jan 2024 - Jun 2024' },
+                        eng: { degree: 'Computer Engineering', inst: 'INACAP', year: '2001 - 2006' }
+                    },
+                    certs: { scrum: 'SMPC Certificate', google: 'Google', python: 'Fundamentals', aws: 'ACL Academy' }
+                },
+                contact: {
+                    title: 'Contact', subtitle: 'Let\'s talk about your next data project.', description: 'Available for opportunities in Data Engineering, Data Architecture, and Business Intelligence.',
+                    phone: 'Phone / WhatsApp', email: 'Email', location: 'Location', linkedin: 'LinkedIn',
+                    form: { name: 'Name', email: 'Email', message: 'Message', submit: 'Send Message' }
+                }
+            }
+        };
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            // Icons
+            lucide.createIcons();
+
+            // Year
+            document.getElementById('year').textContent = new Date().getFullYear();
+
+            // Navbar Scroll
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+            });
+
+            // Mobile Menu
+            const menuBtn = document.getElementById('menu-btn');
+            const closeMenuBtn = document.getElementById('close-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+
+            function toggleMenu() {
+                mobileMenu.classList.toggle('open');
+            }
+
+            menuBtn.addEventListener('click', toggleMenu);
+            closeMenuBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            // Language Logic
+            let currentLang = 'es';
+
+            function renderLanguage(lang) {
+                const t = translations[lang];
+
+                // Simple Text Elements
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const keys = el.getAttribute('data-i18n').split('.');
+                    let value = t;
+                    keys.forEach(k => value = value[k]);
+                    if (value) el.textContent = value;
+                });
+
+                // Complex: Services Grid
+                const skillsGrid = document.getElementById('skills-grid');
+                skillsGrid.innerHTML = '';
+                t.services.cards.forEach(card => {
+                    const el = document.createElement('div');
+                    el.className = `skill-card ${card.highlighted ? 'highlight' : 'dark'}`;
+                    // Icon logic handled simply here, assuming re-render triggers lucide
+                    el.innerHTML = `
+                        <div style="position: relative; z-index: 10;">
+                            <div class="skill-icon-box">
+                                <i data-lucide="${card.icon}"></i>
+                            </div>
+                            <h3 class="font-display font-bold" style="font-size: 1.25rem; margin-bottom: 1rem;">${card.title}</h3>
+                            <ul class="skill-list" style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                ${card.items.map(item => `<li style="opacity: ${card.highlighted ? 0.9 : 0.7}">• ${item}</li>`).join('')}
+                            </ul>
+                        </div>
+                        ${!card.highlighted ? `<div style="position: absolute; bottom: -2.5rem; right: -2.5rem; width: 8rem; height: 8rem; background-color: var(--color-accent-light); border-radius: 50%;"></div>` : ''}
+                    `;
+                    skillsGrid.appendChild(el);
+                });
+
+                // Complex: Experience Timeline
+                const timelineItems = document.getElementById('timeline-items');
+                timelineItems.innerHTML = '';
+                t.experience.items.forEach((item, index) => {
+                    const el = document.createElement('div');
+                    el.className = 'timeline-item';
+                    el.innerHTML = `
+                        <div class="timeline-dot">
+                            <div class="timeline-dot-inner"></div>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="flex flex-col md-flex justify-between items-center" style="margin-bottom: 1rem; align-items: flex-start;">
+                                <h4 class="font-display font-bold text-white text-xl">${item.company}</h4>
+                                <span class="text-accent text-sm font-medium" style="background-color: var(--color-accent-light); padding: 0.25rem 0.75rem; border-radius: 9999px; margin-top: 0.5rem;">${item.period}</span>
+                            </div>
+                            <h5 class="text-gray" style="font-weight: 500; margin-bottom: 0.75rem;">${item.role}</h5>
+                            <p class="text-gray text-sm" style="margin-bottom: 1rem;">${item.description}</p>
+                            ${item.achievements ? `<ul style="list-style: disc; list-style-position: inside; font-size: 0.875rem; color: var(--color-gray-500); display: flex; flex-direction: column; gap: 0.25rem;">
+                                ${item.achievements.map(ach => `<li>${ach}</li>`).join('')}
+                            </ul>` : ''}
+                        </div>
+                    `;
+                    timelineItems.appendChild(el);
+                });
+
+                // Toggle Button Text
+                const nextLang = lang === 'es' ? 'EN' : 'ES';
+                document.getElementById('lang-label-desktop').textContent = nextLang;
+                document.getElementById('lang-label-mobile').textContent = nextLang;
+
+                // Re-init icons for newly injected HTML
+                lucide.createIcons();
+            }
+
+            // Lang Toggle Event
+            function toggleLanguage() {
+                currentLang = currentLang === 'es' ? 'en' : 'es';
+                renderLanguage(currentLang);
+            }
+
+            document.getElementById('lang-toggle-desktop').addEventListener('click', toggleLanguage);
+            document.getElementById('lang-toggle-mobile').addEventListener('click', toggleLanguage);
+
+            // Initial Render
+            renderLanguage('es');
+        });
+    </script>
+</body>
 </html>
