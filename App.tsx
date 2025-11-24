@@ -13,7 +13,7 @@ function App() {
       <div className="bg-dark-900 min-h-screen text-white font-sans selection:bg-accent selection:text-dark-900">
         <Navbar />
         <main>
-          <Hero />
+          <Hero /> 
           <Services />
           <Experience />
           <Education />
