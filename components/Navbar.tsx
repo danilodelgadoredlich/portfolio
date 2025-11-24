@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Globe } from 'lucide-react';
 import { SectionId } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { language, toggleLanguage, t } = useLanguage();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -23,11 +25,11 @@ export const Navbar: React.FC = () => {
   };
 
   const navLinks = [
-    { label: 'Inicio', id: SectionId.HOME },
-    { label: 'Sobre Mí', id: SectionId.ABOUT },
-    { label: 'Experiencia', id: SectionId.EXPERIENCE },
-    { label: 'Educación', id: SectionId.EDUCATION },
-    { label: 'Contacto', id: SectionId.CONTACT },
+    { label: t.nav.home, id: SectionId.HOME },
+    { label: t.nav.about, id: SectionId.ABOUT },
+    { label: t.nav.experience, id: SectionId.EXPERIENCE },
+    { label: t.nav.education, id: SectionId.EDUCATION },
+    { label: t.nav.contact, id: SectionId.CONTACT },
   ];
 
   return (
@@ -41,7 +43,7 @@ export const Navbar: React.FC = () => {
         </div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex gap-8">
+        <div className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <button
               key={link.id}
@@ -51,12 +53,28 @@ export const Navbar: React.FC = () => {
               {link.label}
             </button>
           ))}
+          
+          <button 
+            onClick={toggleLanguage}
+            className="flex items-center gap-2 px-3 py-1 rounded-full border border-dark-700 bg-dark-800 text-xs font-bold text-gray-300 hover:border-accent hover:text-white transition-all ml-4"
+          >
+            <Globe size={14} />
+            <span>{language === 'es' ? 'EN' : 'ES'}</span>
+          </button>
         </div>
 
         {/* Mobile Toggle */}
-        <button className="md:hidden text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
-          {mobileMenuOpen ? <X /> : <Menu />}
-        </button>
+        <div className="md:hidden flex items-center gap-4">
+            <button 
+                onClick={toggleLanguage}
+                className="flex items-center gap-1 px-2 py-1 rounded-full border border-dark-700 bg-dark-800 text-xs font-bold text-gray-300"
+            >
+                <span>{language === 'es' ? 'EN' : 'ES'}</span>
+            </button>
+            <button className="text-white" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            {mobileMenuOpen ? <X /> : <Menu />}
+            </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}

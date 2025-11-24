@@ -1,8 +1,11 @@
 import React from 'react';
 import { ArrowRight, Linkedin, Mail, Smartphone } from 'lucide-react';
 import { SectionId } from '../types'; 
+import { useLanguage } from '../context/LanguageContext';
 
 export const Hero: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <section id={SectionId.HOME} className="min-h-screen flex items-center pt-20 relative overflow-hidden">
         {/* Background Decorative Elements */}
@@ -14,19 +17,19 @@ export const Hero: React.FC = () => {
         <div className="lg:w-1/2 space-y-8">
             <div className="space-y-4">
                 <div className="w-12 h-1 bg-accent mb-6"></div>
-                <h2 className="text-accent font-medium tracking-widest uppercase">Ingeniero de Datos</h2>
+                <h2 className="text-accent font-medium tracking-widest uppercase">{t.hero.role}</h2>
                 <h1 className="font-display text-5xl lg:text-7xl font-bold leading-tight">
                     Danilo <br />
                     <span className="text-white">Redlich.</span>
                 </h1>
                 <p className="text-gray-400 text-lg max-w-md leading-relaxed">
-                    Especialista en arquitectura, diseño e implementación de soluciones robustas de Data Engineering y Analytics con más de 16 años de trayectoria.
+                    {t.hero.description}
                 </p>
             </div>
 
             <div className="flex flex-wrap gap-6 items-center">
                 <a href="#contact" className="group flex items-center gap-2 text-accent font-semibold hover:text-white transition-colors">
-                    Contáctame <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform"/>
+                    {t.hero.cta} <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform"/>
                 </a>
                 <div className="h-px w-12 bg-gray-700"></div>
                 <div className="flex gap-4">
@@ -42,11 +45,11 @@ export const Hero: React.FC = () => {
             <div className="pt-8 flex gap-12">
                  <div>
                     <span className="block font-display text-4xl font-bold text-white">16+</span>
-                    <span className="text-sm text-gray-500 uppercase tracking-wider">Años Experiencia</span>
+                    <span className="text-sm text-gray-500 uppercase tracking-wider">{t.hero.yearsExp}</span>
                  </div>
                  <div>
                     <span className="block font-display text-4xl font-bold text-white">10+</span>
-                    <span className="text-sm text-gray-500 uppercase tracking-wider">Proyectos Cloud</span>
+                    <span className="text-sm text-gray-500 uppercase tracking-wider">{t.hero.cloudProjects}</span>
                  </div>
             </div>
         </div>
@@ -68,7 +71,7 @@ export const Hero: React.FC = () => {
                         <Smartphone size={20} />
                     </div>
                     <div>
-                        <p className="text-xs text-gray-400">Disponible</p>
+                        <p className="text-xs text-gray-400">{t.hero.available}</p>
                         <p className="text-sm font-bold text-white">+56 9 9445 5994</p>
                     </div>
                  </div>

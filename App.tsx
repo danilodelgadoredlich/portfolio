@@ -5,19 +5,22 @@ import { Services } from './components/Services';
 import { Experience } from './components/Experience';
 import { Education } from './components/Education';
 import { Contact } from './components/Contact';
+import { LanguageProvider } from './context/LanguageContext';
 
 function App() {
   return (
-    <div className="bg-dark-900 min-h-screen text-white font-sans selection:bg-accent selection:text-dark-900">
-      <Navbar />
-      <main>
-        <Hero />
-        <Services />
-        <Experience />
-        <Education />
-      </main>
-      <Contact />
-    </div>
+    <LanguageProvider>
+      <div className="bg-dark-900 min-h-screen text-white font-sans selection:bg-accent selection:text-dark-900">
+        <Navbar />
+        <main>
+          <Hero />
+          <Services />
+          <Experience />
+          <Education />
+        </main>
+        <Contact />
+      </div>
+    </LanguageProvider>
   );
 }
 

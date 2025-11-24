@@ -24,3 +24,5 @@ export enum SectionId {
   EDUCATION = 'education',
   CONTACT = 'contact',
 }
+
+export type Language = 'es' | 'en';

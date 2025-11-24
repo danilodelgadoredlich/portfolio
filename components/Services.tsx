@@ -1,6 +1,7 @@
 import React from 'react';
 import { Database, Cloud, Server, BarChart, Code, Settings } from 'lucide-react';
 import { SectionId } from '../types';
+import { useLanguage } from '../context/LanguageContext';
 
 const SkillCard: React.FC<{ title: string; icon: React.ReactNode; items: string[]; highlighted?: boolean }> = ({ title, icon, items, highlighted }) => (
   <div className={`p-8 group relative overflow-hidden transition-all duration-300 hover:-translate-y-2 ${highlighted ? 'bg-accent text-dark-900' : 'bg-dark-800 text-white hover:bg-dark-700'}`}>
@@ -23,50 +24,52 @@ const SkillCard: React.FC<{ title: string; icon: React.ReactNode; items: string[
 );
 
 export const Services: React.FC = () => {
+  const { t } = useLanguage();
+
   return (
     <section id={SectionId.ABOUT} className="py-20 bg-dark-900">
       <div className="container mx-auto px-6">
         <div className="flex flex-col md:flex-row justify-between items-end mb-16">
             <div className="max-w-2xl">
-                <h2 className="text-accent font-medium tracking-widest uppercase mb-2">Aptitudes Principales</h2>
-                <h3 className="font-display text-4xl font-bold text-white">Tecnologías y Dominio Técnico.</h3>
+                <h2 className="text-accent font-medium tracking-widest uppercase mb-2">{t.services.title}</h2>
+                <h3 className="font-display text-4xl font-bold text-white">{t.services.subtitle}</h3>
             </div>
             <p className="text-gray-400 max-w-md mt-6 md:mt-0">
-                Consolidada experiencia en Cloud Computing, ETL/ELT y visualización de datos para generar valor de negocio.
+                {t.services.description}
             </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <SkillCard 
-                title="Cloud Architecture" 
+                title={t.services.cards.cloud}
                 icon={<Cloud />}
                 items={['Azure Data Lake Storage', 'Azure Databricks', 'Azure Data Factory', 'AWS Glue & S3', 'AWS Redshift']}
                 highlighted={true} // Yellow card styling from inspiration
             />
             <SkillCard 
-                title="Big Data & Databases" 
+                title={t.services.cards.data}
                 icon={<Database />}
                 items={['SQL Server (T-SQL)', 'PostgreSQL', 'Teradata', 'Data Warehousing', 'Delta Lake']}
             />
             <SkillCard 
-                title="Orchestration & ETL" 
+                title={t.services.cards.etl}
                 icon={<Settings />}
-                items={['Apache Airflow', 'Apache NiFi', 'SSIS', 'Pipelines Automatizados', 'Python & PySpark']}
+                items={['Apache Airflow', 'Apache NiFi', 'SSIS', 'Automated Pipelines', 'Python & PySpark']}
             />
              <SkillCard 
-                title="Data Visualization (BI)" 
+                title={t.services.cards.viz}
                 icon={<BarChart />}
-                items={['Power BI', 'Tableau', 'Microstrategy', 'Reporting Ejecutivo', 'KPIs']}
+                items={['Power BI', 'Tableau', 'Microstrategy', 'Executive Reporting', 'KPIs']}
             />
             <SkillCard 
-                title="Development" 
+                title={t.services.cards.dev}
                 icon={<Code />}
-                items={['Python', 'C', 'Notebooks', 'Procedimientos Almacenados', 'APIs']}
+                items={['Python', 'C', 'Notebooks', 'Stored Procedures', 'APIs']}
             />
             <SkillCard 
-                title="Methodologies" 
+                title={t.services.cards.method}
                 icon={<Server />}
-                items={['Scrum Master', 'Agile', 'Liderazgo de Equipos', 'DevOps CI/CD', 'Gestión de Proyectos']}
+                items={['Scrum Master', 'Agile', 'Team Leadership', 'DevOps CI/CD', 'Project Management']}
             />
         </div>
       </div>
